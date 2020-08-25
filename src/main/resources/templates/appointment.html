@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Appointments</title>
+</head>
+<body>
+
+<div class="container">
+    <h3>Appointments List</h3>
+
+    <div class="col-md-12">
+        <a th:href="@{/appointments/add}" class="btn btn-primary" >Add New Appointment</a>
+        <a th:href="@{/doctors}" class="btn btn-secondary" >Go to Doctors</a>
+    </div>
+    <br>
+
+    <div th:switch="appointments" >
+
+        <div th:case="*">
+
+            <table class="table" style="text-align: center">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Hospital Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Cause</th>
+                    <th scope="col">Room</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="appointment : ${appointments}">
+                    <th scope="row" th:text="${appointment.id}" ></th>
+                    <td th:text="${appointment.hospitalName}"></td>
+                    <td th:text="${appointment.address}"></td>
+                    <td th:text="${appointment.cause}"></td>
+                    <td th:text="${appointment.room}"></td>
+                    <td th:text="${appointment.date}"></td>
+
+                    <td class="btn-group">
+                        <a class="btn btn-info" th:href="@{/appointments/{id}/clients (id = ${appointment.client.dni})}">Client</a>
+                        <a class="btn btn-primary" th:href="@{/appointments/edit/{id} (id = ${appointment.id})}">Edit</a>
+                        <a class="btn btn-danger" th:href="@{/appointments/delete/{id} (id = ${appointment.id})}">Cancel</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>
+
+</body>
+</html>
